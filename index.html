@@ -6,33 +6,30 @@
     <style>
         /* ... 기존 스타일 유지 ... */
         
-        /* 드롭다운 메뉴 스타일 추가 */
-        select {
-            width: 168px;
+        /* 숫자 입력 필드의 화살표 버튼 제거 */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+        
+        /* 입력 필드 스타일 */
+        .odds-group input {
+            width: 150px;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: white;
-            cursor: pointer;
-            -webkit-appearance: menulist; /* Safari 및 Chrome용 */
-            -moz-appearance: menulist; /* Firefox용 */
-            appearance: menulist; /* 표준 */
         }
         
-        select:focus {
+        .odds-group input:focus {
             outline: none;
             border-color: #007bff;
-        }
-        
-        /* 드롭다운 옵션 스타일 */
-        select option {
-            padding: 8px;
-            background-color: white;
-            color: #333;
-        }
-        
-        select option:hover {
-            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -40,7 +37,7 @@
     <div class="container">
         <h1>베팅 예측 시스템</h1>
         
-        <!-- 필터 영역 수정 -->
+        <!-- 필터 영역 -->
         <div class="input-group">
             <label for="sport">종목:</label>
             <select id="sport" name="sport">
@@ -49,7 +46,6 @@
                 <option value="농구">농구</option>
                 <option value="야구">야구</option>
                 <option value="배구">배구</option>
-                <!-- 추가 옵션은 script.js에서 동적으로 생성됨 -->
             </select>
         </div>
         <div class="input-group">
@@ -59,24 +55,23 @@
                 <option value="승무패">승무패</option>
                 <option value="핸디캡">핸디캡</option>
                 <option value="언더오버">언더오버</option>
-                <!-- 추가 옵션은 script.js에서 동적으로 생성됨 -->
             </select>
         </div>
 
-        <!-- 배당률 입력 영역 -->
+        <!-- 배당률 입력 영역 수정 -->
         <div class="odds-group">
             <div class="odds-title">배당률 입력</div>
             <div class="input-group">
                 <label for="win">승:</label>
-                <input type="number" id="win" name="win" step="0.01" placeholder="승 배당률">
+                <input type="number" id="win" name="win" placeholder="직접 입력" step="any">
             </div>
             <div class="input-group">
                 <label for="draw">무:</label>
-                <input type="number" id="draw" name="draw" step="0.01" placeholder="무 배당률">
+                <input type="number" id="draw" name="draw" placeholder="직접 입력" step="any">
             </div>
             <div class="input-group">
                 <label for="lose">패:</label>
-                <input type="number" id="lose" name="lose" step="0.01" placeholder="패 배당률">
+                <input type="number" id="lose" name="lose" placeholder="직접 입력" step="any">
             </div>
         </div>
 
