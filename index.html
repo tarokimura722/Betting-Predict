@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>베팅 예측 시스템</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: bold;
+        }
+        input, select {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 150px;
+        }
+        select {
+            width: 162px; /* input과 같은 너비로 맞추기 */
+        }
+        .odds-group {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        .odds-title {
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>베팅 예측 시스템</h1>
+        
+        <!-- 드롭다운 메뉴로 변경된 필터 -->
+        <div class="input-group">
+            <label for="sport">종목:</label>
+            <select id="sport">
+                <option value="">전체</option>
+                <!-- JavaScript에서 동적으로 옵션이 추가됩니다 -->
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="betType">베팅유형:</label>
+            <select id="betType">
+                <option value="">전체</option>
+                <!-- JavaScript에서 동적으로 옵션이 추가됩니다 -->
+            </select>
+        </div>
+
+        <!-- 배당률 입력 섹션 -->
+        <div class="odds-group">
+            <div class="odds-title">새로운 배당률 입력</div>
+            <div class="input-group">
+                <label for="win">승:</label>
+                <input type="number" id="win" step="0.1" placeholder="승 배당률">
+            </div>
+            <div class="input-group">
+                <label for="draw">무:</label>
+                <input type="number" id="draw" step="0.1" placeholder="무 배당률">
+            </div>
+            <div class="input-group">
+                <label for="lose">패:</label>
+                <input type="number" id="lose" step="0.1" placeholder="패 배당률">
+            </div>
+        </div>
+
+        <button onclick="calculateProbabilities()">예측하기</button>
+        <div id="result"></div>
+    </div>
+
+    <!-- 데이터와 스크립트 파일 로드 -->
+    <script src="betting_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
