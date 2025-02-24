@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>베팅 예측 시스템</title>
     <style>
-        /* 공통 스타일 */
+        /* 기존 스타일 유지 */
         * {
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
@@ -68,17 +68,6 @@
             border-color: #007bff;
         }
 
-        /* 숫자 입력 필드 화살표 제거 */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
         .odds-group {
             margin-top: 30px;
             padding: 20px;
@@ -111,12 +100,65 @@
             background-color: #0056b3;
         }
 
+        /* 결과 영역 스타일 개선 */
         #result {
             margin-top: 20px;
             padding: 20px;
             border: 1px solid #e9ecef;
             border-radius: 8px;
             background-color: #f8f9fa;
+        }
+
+        #result h3 {
+            color: #007bff;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        #result h4 {
+            color: #495057;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .result-item {
+            padding: 12px;
+            margin: 8px 0;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            transition: background-color 0.2s;
+        }
+
+        .result-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .result-item strong {
+            color: #007bff;
+            font-size: 16px;
+        }
+
+        .result-detail {
+            color: #6c757d;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .input-conditions {
+            margin: 15px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .input-conditions p {
+            margin: 8px 0;
+            color: #495057;
+            font-size: 14px;
         }
 
         /* 모바일 대응 */
@@ -145,6 +187,18 @@
             button {
                 padding: 15px;
             }
+
+            #result {
+                padding: 15px;
+            }
+
+            .result-item {
+                padding: 10px;
+            }
+
+            .input-conditions {
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -156,10 +210,6 @@
             <label for="sport">종목:</label>
             <select id="sport" name="sport">
                 <option value="">전체</option>
-                <option value="축구">축구</option>
-                <option value="농구">농구</option>
-                <option value="야구">야구</option>
-                <option value="배구">배구</option>
             </select>
         </div>
 
@@ -167,43 +217,43 @@
             <label for="betType">베팅유형:</label>
             <select id="betType" name="betType">
                 <option value="">전체</option>
-                <option value="승무패">승무패</option>
-                <option value="핸디캡">핸디캡</option>
-                <option value="언더오버">언더오버</option>
             </select>
         </div>
 
-<!-- 배당률 입력 부분만 수정 -->
-<div class="odds-group">
-    <div class="odds-title">배당률 입력</div>
-    <div class="input-group">
-        <label for="win">승:</label>
-        <input type="text" 
-               id="win" 
-               name="win" 
-               pattern="[0-9]*[.]?[0-9]*" 
-               inputmode="decimal"
-               placeholder="승 배당률">
+        <div class="odds-group">
+            <div class="odds-title">배당률 입력</div>
+            <div class="input-group">
+                <label for="win">승:</label>
+                <input type="text" 
+                       id="win" 
+                       name="win" 
+                       pattern="[0-9]*[.]?[0-9]*" 
+                       inputmode="decimal"
+                       placeholder="승 배당률">
+            </div>
+            <div class="input-group">
+                <label for="draw">무:</label>
+                <input type="text" 
+                       id="draw" 
+                       name="draw" 
+                       pattern="[0-9]*[.]?[0-9]*" 
+                       inputmode="decimal"
+                       placeholder="무 배당률">
+            </div>
+            <div class="input-group">
+                <label for="lose">패:</label>
+                <input type="text" 
+                       id="lose" 
+                       name="lose" 
+                       pattern="[0-9]*[.]?[0-9]*" 
+                       inputmode="decimal"
+                       placeholder="패 배당률">
+            </div>
+        </div>
+
+        <button type="button" id="calculateBtn">예측하기</button>
+        <div id="result"></div>
     </div>
-    <div class="input-group">
-        <label for="draw">무:</label>
-        <input type="text" 
-               id="draw" 
-               name="draw" 
-               pattern="[0-9]*[.]?[0-9]*" 
-               inputmode="decimal"
-               placeholder="무 배당률">
-    </div>
-    <div class="input-group">
-        <label for="lose">패:</label>
-        <input type="text" 
-               id="lose" 
-               name="lose" 
-               pattern="[0-9]*[.]?[0-9]*" 
-               inputmode="decimal"
-               placeholder="패 배당률">
-    </div>
-</div>
 
     <script src="betting_data.js"></script>
     <script src="script.js"></script>
