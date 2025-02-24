@@ -1,34 +1,45 @@
 // 페이지 로드 시 드롭다운 메뉴 초기화
 window.onload = function() {
-    // 데이터가 제대로 로드되었는지 확인
+    console.log('페이지 로드됨');  // 디버깅용
+
+    // 데이터 로드 확인
     if (typeof bettingData === 'undefined') {
         console.error('betting_data.js가 로드되지 않았습니다.');
         return;
     }
+    console.log('데이터 개수:', bettingData.length);  // 디버깅용
 
     // 종목 옵션 설정
-    const sports = [...new Set(bettingData.map(item => item.종목))].sort();
-    const sportSelect = document.getElementById('sport');
-    sports.forEach(sport => {
-        if (sport) {  // null이나 undefined가 아닌 경우만 추가
+    try {
+        const sports = [...new Set(bettingData.map(item => item['종목']))].filter(Boolean).sort();
+        console.log('추출된 종목:', sports);  // 디버깅용
+        
+        const sportSelect = document.getElementById('sport');
+        sports.forEach(sport => {
             const option = document.createElement('option');
             option.value = sport;
             option.textContent = sport;
             sportSelect.appendChild(option);
-        }
-    });
+        });
+    } catch (error) {
+        console.error('종목 옵션 설정 중 오류:', error);
+    }
 
     // 베팅유형 옵션 설정
-    const betTypes = [...new Set(bettingData.map(item => item.베팅유형))].sort();
-    const betTypeSelect = document.getElementById('betType');
-    betTypes.forEach(betType => {
-        if (betType) {  // null이나 undefined가 아닌 경우만 추가
+    try {
+        const betTypes = [...new Set(bettingData.map(item => item['베팅유형']))].filter(Boolean).sort();
+        console.log('추출된 베팅유형:', betTypes);  // 디버깅용
+        
+        const betTypeSelect = document.getElementById('betType');
+        betTypes.forEach(betType => {
             const option = document.createElement('option');
             option.value = betType;
             option.textContent = betType;
             betTypeSelect.appendChild(option);
-        }
-    });
+        });
+    } catch (error) {
+        console.error('베팅유형 옵션 설정 중 오류:', error);
+    }
 };
 
 function calculateProbabilities() {
@@ -38,22 +49,26 @@ function calculateProbabilities() {
     const draw = parseFloat(document.getElementById('draw').value);
     const lose = parseFloat(document.getElementById('lose').value);
 
+    console.log('선택된 값:', { sport, betType, win, draw, lose });  // 디버깅용
+
     // 종목과 베팅유형으로만 필터링
     let filteredData = bettingData;
     
     if (sport) {
-        filteredData = filteredData.filter(item => item.종목 === sport);
+        filteredData = filteredData.filter(item => item['종목'] === sport);
     }
     if (betType) {
-        filteredData = filteredData.filter(item => item.베팅유형 === betType);
+        filteredData = filteredData.filter(item => item['베팅유형'] === betType);
     }
+
+    console.log('필터링된 데이터 개수:', filteredData.length);  // 디버깅용
 
     // 결과 계산
     const total = filteredData.length;
     const results = {};
     
     filteredData.forEach(item => {
-        results[item.결과] = (results[item.결과] || 0) + 1;
+        results[item['결과']] = (results[item['결과']] || 0) + 1;
     });
 
     // 결과 표시
@@ -77,10 +92,6 @@ function calculateProbabilities() {
         if (!isNaN(win)) resultHTML += `<p>승: ${win}</p>`;
         if (!isNaN(draw)) resultHTML += `<p>무: ${draw}</p>`;
         if (!isNaN(lose)) resultHTML += `<p>패: ${lose}</p>`;
-    }
-
-    resultDiv.innerHTML = resultHTML;
-}
     }
 
     resultDiv.innerHTML = resultHTML;
