@@ -142,3 +142,6 @@ function showError(message) {
         </div>
     `;
 }
+
+// 나머지 함수들(filterData, calculateResults, displayResults, showError)은 
+// 기존 PC 환경의 코드를 그대로 유지
