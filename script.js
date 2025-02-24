@@ -49,19 +49,23 @@ function calculateProbabilities() {
     const lose = parseFloat(document.getElementById('lose').value);
 
     // 디버깅용 로그
-    console.log('입력값:', { sport, betType, win, draw, lose });
+    console.log('선택된 베팅유형:', betType);
+    console.log('전체 데이터 수:', bettingData.length);
 
     // 1. 종목과 베팅유형으로 1차 필터링
     let filteredData = bettingData;
     
-    if (sport) {
+    if (sport && sport !== "전체") {
         filteredData = filteredData.filter(item => item.종목 === sport);
     }
-    if (betType) {
-        filteredData = filteredData.filter(item => item.베팅유형 === betType);
+    
+    if (betType && betType !== "전체") {
+        filteredData = filteredData.filter(item => 
+            String(item.베팅유형).trim() === betType.trim()
+        );
     }
 
-    // 2. 입력된 배당률과 정확히 일치하는 데이터 필터링
+    // 2. 배당률 정확히 일치하는 데이터 필터링
     if (!isNaN(win) || !isNaN(draw) || !isNaN(lose)) {
         filteredData = filteredData.filter(item => {
             let matchCount = 0;
@@ -69,7 +73,6 @@ function calculateProbabilities() {
 
             if (!isNaN(win)) {
                 requiredMatches++;
-                // 소수점 2자리까지 비교
                 if (parseFloat(item.승.toFixed(2)) === parseFloat(win.toFixed(2))) matchCount++;
             }
             if (!isNaN(draw)) {
@@ -85,11 +88,9 @@ function calculateProbabilities() {
         });
     }
 
-    // 디버깅용 로그
-    console.log('필터링된 데이터 수:', filteredData.length);
-    if (filteredData.length > 0) {
-        console.log('첫 번째 일치 데이터:', filteredData[0]);
-    }
+    console.log('필터링 후 데이터 수:', filteredData.length);
+
+    // 나머지 결과 계산 코드는 동일...
 
     // 3. 결과 계산
     const total = filteredData.length;
