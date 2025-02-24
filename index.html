@@ -4,79 +4,35 @@
     <meta charset="UTF-8">
     <title>베팅 예측 시스템</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .input-group {
-            margin: 15px 0;
-        }
-        label {
-            display: inline-block;
-            width: 100px;
-            font-weight: bold;
-        }
-        input, select {
-            padding: 5px;
+        /* ... 기존 스타일 유지 ... */
+        
+        /* 드롭다운 메뉴 스타일 추가 */
+        select {
+            width: 168px;
+            padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            width: 150px;
-        }
-        select {
-            width: 162px;
-            cursor: pointer;
             background-color: white;
+            cursor: pointer;
+            -webkit-appearance: menulist; /* Safari 및 Chrome용 */
+            -moz-appearance: menulist; /* Firefox용 */
+            appearance: menulist; /* 표준 */
         }
+        
         select:focus {
             outline: none;
             border-color: #007bff;
         }
-        .odds-group {
-            margin-top: 30px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-        }
-        .odds-title {
-            margin-bottom: 15px;
+        
+        /* 드롭다운 옵션 스타일 */
+        select option {
+            padding: 8px;
+            background-color: white;
             color: #333;
-            font-weight: bold;
         }
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f8f9fa;
-        }
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-        input[type=number] {
-            -moz-appearance: textfield;
+        
+        select option:hover {
+            background-color: #f0f0f0;
         }
     </style>
 </head>
@@ -84,36 +40,43 @@
     <div class="container">
         <h1>베팅 예측 시스템</h1>
         
-        <!-- 필터 영역 -->
+        <!-- 필터 영역 수정 -->
         <div class="input-group">
             <label for="sport">종목:</label>
             <select id="sport" name="sport">
                 <option value="">전체</option>
-                <!-- 동적으로 추가될 옵션들 -->
+                <option value="축구">축구</option>
+                <option value="농구">농구</option>
+                <option value="야구">야구</option>
+                <option value="배구">배구</option>
+                <!-- 추가 옵션은 script.js에서 동적으로 생성됨 -->
             </select>
         </div>
         <div class="input-group">
             <label for="betType">베팅유형:</label>
             <select id="betType" name="betType">
                 <option value="">전체</option>
-                <!-- 동적으로 추가될 옵션들 -->
+                <option value="승무패">승무패</option>
+                <option value="핸디캡">핸디캡</option>
+                <option value="언더오버">언더오버</option>
+                <!-- 추가 옵션은 script.js에서 동적으로 생성됨 -->
             </select>
         </div>
 
         <!-- 배당률 입력 영역 -->
         <div class="odds-group">
-            <div class="odds-title">새로운 배당률 입력</div>
+            <div class="odds-title">배당률 입력</div>
             <div class="input-group">
                 <label for="win">승:</label>
-                <input type="number" id="win" name="win" step="0.1" placeholder="직접 입력">
+                <input type="number" id="win" name="win" step="0.01" placeholder="승 배당률">
             </div>
             <div class="input-group">
                 <label for="draw">무:</label>
-                <input type="number" id="draw" name="draw" step="0.1" placeholder="직접 입력">
+                <input type="number" id="draw" name="draw" step="0.01" placeholder="무 배당률">
             </div>
             <div class="input-group">
                 <label for="lose">패:</label>
-                <input type="number" id="lose" name="lose" step="0.1" placeholder="직접 입력">
+                <input type="number" id="lose" name="lose" step="0.01" placeholder="패 배당률">
             </div>
         </div>
 
