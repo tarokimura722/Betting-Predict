@@ -173,21 +173,37 @@
             </select>
         </div>
 
-        <div class="odds-group">
-            <div class="odds-title">배당률 입력</div>
-            <div class="input-group">
-                <label for="win">승:</label>
-                <input type="number" id="win" name="win" step="0.01" placeholder="승 배당률">
-            </div>
-            <div class="input-group">
-                <label for="draw">무:</label>
-                <input type="number" id="draw" name="draw" step="0.01" placeholder="무 배당률">
-            </div>
-            <div class="input-group">
-                <label for="lose">패:</label>
-                <input type="number" id="lose" name="lose" step="0.01" placeholder="패 배당률">
-            </div>
-        </div>
+        <!-- 배당률 입력 부분만 수정 -->
+<div class="odds-group">
+    <div class="odds-title">배당률 입력</div>
+    <div class="input-group">
+        <label for="win">승:</label>
+        <input type="text" 
+               id="win" 
+               name="win" 
+               pattern="[0-9]*[.]?[0-9]*" 
+               inputmode="decimal"
+               placeholder="승 배당률">
+    </div>
+    <div class="input-group">
+        <label for="draw">무:</label>
+        <input type="text" 
+               id="draw" 
+               name="draw" 
+               pattern="[0-9]*[.]?[0-9]*" 
+               inputmode="decimal"
+               placeholder="무 배당률">
+    </div>
+    <div class="input-group">
+        <label for="lose">패:</label>
+        <input type="text" 
+               id="lose" 
+               name="lose" 
+               pattern="[0-9]*[.]?[0-9]*" 
+               inputmode="decimal"
+               placeholder="패 배당률">
+    </div>
+</div>
 
         <button type="button" id="calculateBtn">예측하기</button>
         <div id="result"></div>
