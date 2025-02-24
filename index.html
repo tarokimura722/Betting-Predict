@@ -5,74 +5,195 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>베팅 예측 시스템</title>
     <style>
-        /* 기존 스타일 유지 */
+        /* 공통 스타일 */
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             background-color: #f5f5f5;
         }
-        
-        /* 모바일 대응 스타일 추가 */
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            width: 200px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        select {
+            cursor: pointer;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 1em;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        /* 숫자 입력 필드 화살표 제거 */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .odds-group {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .odds-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+
+        /* 모바일 대응 */
         @media screen and (max-width: 600px) {
             body {
                 padding: 10px;
             }
-            
+
             .container {
                 padding: 15px;
             }
-            
-            .input-group {
-                margin: 10px 0;
-            }
-            
+
             label {
                 display: block;
-                margin-bottom: 5px;
                 width: 100%;
             }
-            
+
             input, select {
                 width: 100%;
-                max-width: none;
-                box-sizing: border-box;
             }
-            
-            button {
-                width: 100%;
+
+            .odds-group {
                 padding: 15px;
-                font-size: 16px;
             }
-            
-            #result {
-                font-size: 14px;
+
+            button {
+                padding: 15px;
             }
-        }
-        
-        /* 입력 필드 개선 */
-        input[type=number] {
-            -webkit-appearance: none;
-            -moz-appearance: textfield;
-            appearance: textfield;
-            font-size: 16px; /* 모바일에서 자동 확대 방지 */
-        }
-        
-        select {
-            font-size: 16px;
-            height: 40px;
-        }
-        
-        button {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            touch-action: manipulation;
         }
     </style>
 </head>
 <body>
-    <!-- 기존 HTML 구조 유지 -->
+    <div class="container">
+        <h1>베팅 예측 시스템</h1>
+        
+        <div class="input-group">
+            <label for="sport">종목:</label>
+            <select id="sport" name="sport">
+                <option value="">전체</option>
+                <option value="축구">축구</option>
+                <option value="농구">농구</option>
+                <option value="야구">야구</option>
+                <option value="배구">배구</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label for="betType">베팅유형:</label>
+            <select id="betType" name="betType">
+                <option value="">전체</option>
+                <option value="승무패">승무패</option>
+                <option value="핸디캡">핸디캡</option>
+                <option value="언더오버">언더오버</option>
+            </select>
+        </div>
+
+        <div class="odds-group">
+            <div class="odds-title">배당률 입력</div>
+            <div class="input-group">
+                <label for="win">승:</label>
+                <input type="number" id="win" name="win" step="0.01" placeholder="승 배당률">
+            </div>
+            <div class="input-group">
+                <label for="draw">무:</label>
+                <input type="number" id="draw" name="draw" step="0.01" placeholder="무 배당률">
+            </div>
+            <div class="input-group">
+                <label for="lose">패:</label>
+                <input type="number" id="lose" name="lose" step="0.01" placeholder="패 배당률">
+            </div>
+        </div>
+
+        <button type="button" id="calculateBtn">예측하기</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="betting_data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
