@@ -1,4 +1,3 @@
-// 페이지 로드 시 드롭다운 메뉴 초기화
 window.onload = function() {
     // 데이터 로드 확인
     if (typeof bettingData === 'undefined' || !bettingData) {
@@ -36,8 +35,6 @@ window.onload = function() {
         }
     });
 };
-
-// 페이지 로드 시 드롭다운 메뉴 초기화 부분은 동일...
 
 function calculateProbabilities() {
     const sport = document.getElementById('sport').value;
